@@ -1,5 +1,4 @@
 const jwt = require('jwonwebtoken');
-const user = require('../schemas/user');
 const User = require('../schemas/user');
 
 module.exports = (req, res, next) => {
