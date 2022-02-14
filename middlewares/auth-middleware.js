@@ -14,7 +14,7 @@ module.exports = (req, res, next) => {
 
     try {
         const { userId } = jwt.verify(tokenValue, 'my-secret-key');
-        User.findOne({ userId }).exec().then((uer) => {
+        User.findOne({ userId }).exec().then((user) => {
             res.locals.user = {
                 userId: user.userId,
                 pw: user.pw,
