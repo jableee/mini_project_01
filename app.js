@@ -1,20 +1,21 @@
 const express = require('express');
-const app = express();  
-// const port = 5000; //포트 맞추기
 
-
-// cors 작성 
-// cors use
+const app = express();
+const port = 5000;
+const bodyParser = require('body-parser');
 
 const connect = require('./schemas');
-connect();
-app.use(express.urlencoded({extended: false}));
-app.use(express.json);
+connect ();
+
+// app.use(express.json);
+app.use(bodyParser.json());
+app.use(express.urlencoded({ extened: false }));
 
 const mainRouter = require("./routers/note"); //데이터명 정해주기
-
+const user = require('./routers/user');
 app.use('/api', mainRouter);
+app.use('/api', user);
 
 app.listen(port, () => {
-    console.log(`listening at http://loaclhost:${port}`)
-})
+    console.log(`listening at http://localhost:${port}`);
+});

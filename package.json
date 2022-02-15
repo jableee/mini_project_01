@@ -1,7 +1,26 @@
 {
   "dependencies": {
     "express": "^4.17.2",
+    "joi": "^17.6.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.2.1"
-  }
+  },
+  "name": "miniproject2",
+  "description": "프로젝트 이름 : 기획자의 일상",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jableee/mini_project_01.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jableee/mini_project_01/issues"
+  },
+  "homepage": "https://github.com/jableee/mini_project_01#readme"
 }
