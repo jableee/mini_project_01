@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const UserSchema = new mongoose.Schema ({
+const UserSchema = new mongoose.Schema({
     userId: {
         type: String,
         unique: true,
@@ -9,7 +9,7 @@ const UserSchema = new mongoose.Schema ({
 
     pw: {
         tyep: String,
-        required: true,
+        // required: true,
     },
 
     nickname: {
