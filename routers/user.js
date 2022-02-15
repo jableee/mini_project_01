@@ -3,6 +3,8 @@ const User = require('../schemas/user');
 const Joi = require('joi');
 const jwt = require('jsonwebtoken');
 const authMiddleware = require('../middlewares/auth-middleware');
+const crypto = require('crypto');
+require('dotenv').config()
 
 const router = express.Router();
 
@@ -46,8 +48,14 @@ router.post('/signup', async (req, res) => {
             });
             return;
         }
+        
+        const encodedPW = crypto.createHash(process.env.Algorithm).update(pw + process.env.salt).digest('base64');
 
-        const user = new User({ user_id, nickname, pw });
+        const user = new User({ 
+            user_id: user_id,
+            pw: encodedPW,
+            nickname: nickname,
+         });
         await user.save();
 
         res.status(201).send({
@@ -71,16 +79,28 @@ router.post('/login', async (req, res) => {
     try {
         const { user_id, pw } = await LoginSchema.validateAsync(req.body);
 
-        const user = await User.findOne({ user_id, pw }).exec();
+        const encodedPW = crypto.createHash(process.env.Algorithm).update(pw + process.env.salt).digest('base64');
 
-        if (!user) {
+//        const user = await User.findOne({ user_id, pw }).exec();
+        const user = await User.findOne({ user_id });
+
+        if(!user || encodedPW !== user.pw) {
             res.status(400).send({
                 errorMessage: '아이디 또는 패스워드를 다시 확인해주세요',
             });
             return;
         }
 
-        const token = jwt.sign({ user_id: user.userId }, 'my-secret-key');
+        // if (!user) {
+        //     res.status(400).send({
+        //         errorMessage: '아이디 또는 패스워드를 다시 확인해주세요',
+        //     });
+        //     return;
+        // }
+
+//        console.log(process.env.TOKENKEY);
+
+        const token = jwt.sign({ user_id: user.userId }, process.env.TOKENKEY);
         res.send({
             token,
         });
