@@ -39,7 +39,7 @@ router.post('/signup', async (req, res) => {
         const user = new User({ user_id, pw });
         await user.save();
 
-        res.status(201).send({});
+        res.status(201).send({user});
     } catch (err) {
         console.log(err);
         res.status(400).send({

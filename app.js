@@ -9,7 +9,7 @@ connect ();
 
 // app.use(bodyParser.json());
 app.use(express.json());
-app.use(express.urlencoded({ extened: true }));
+app.use(express.urlencoded({ extened: false }));
 
 const mainRouter = require("./routers/note"); //데이터명 정해주기
 const user = require('./routers/user');
