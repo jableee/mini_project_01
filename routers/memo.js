@@ -57,27 +57,33 @@ router.post("/memo", async (req, res) => {
   res.send({ memos: createdMemo });
 });
 
-router.put("/notelist/:note_id/memo/:memo_id", async (req, res) => {
-  const { note_id, memo_id } = req.params;
+router.put("/memo/:memo_id", async (req, res) => {
+  const { note_id } = req.body;
+  const { memo_id } = req.params;
   const { memo_content, memo_title, date } = req.body;
 
-  const exist_memo = await Memo.find({ note_id: note_id, memo_id: memo_id });
+  // const exist_memo = await Memo.find({ note_id: note_id, memo_id: memo_id });
   // console.log(exist_memo)
-  if (!exist_memo.length) {
-    await Memo.create({
-      note_id: note_id,
-      memo_id: memo_id,
-      memo_content,
-      memo_title,
-      date,
-    });
-  } else {
-    await Memo.updateOne(
-      { note_id: note_id, memo_id: memo_id },
-      { $set: { memo_content, memo_title, date } }
-    );
-  }
-  res.send({ success: true });
+  // if (!exist_memo.length) {
+  //   await Memo.create({
+  //     note_id: note_id,
+  //     memo_id: memo_id,
+  //     memo_content,
+  //     memo_title,
+  //     date,
+  //   });
+  // } else {
+  //   await Memo.updateOne(
+  //     { note_id: note_id, memo_id: memo_id },
+  //     { $set: { memo_content, memo_title, date } }
+  //   );
+  // }
+  await Memo.updateOne(
+    { note_id: note_id, memo_id: memo_id},
+    { $set: { memo_content, memo_title, date } }
+  )
+  const test = await Memo.find({ note_id: note_id })
+  res.send({ success: true, test });
 });
 
 router.delete("/notelist/:note_id/memo/:memo_id", async (req, res) => {
