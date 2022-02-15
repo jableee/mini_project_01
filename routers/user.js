@@ -3,8 +3,7 @@ const User = require('../schemas/user');
 const Joi = require('joi');
 const jwt = require('jsonwebtoken');
 const authMiddleware = require('../middlewares/auth-middleware');
-const crypto = require('crypto');
-require('dotenv').config()
+const bcrypt = require('bcrypt')
 
 const router = express.Router();
 
@@ -48,14 +47,15 @@ router.post('/signup', async (req, res) => {
             });
             return;
         }
-        
-        const encodedPW = crypto.createHash(process.env.Algorithm).update(pw + process.env.salt).digest('base64');
 
-        const user = new User({ 
+
+        const encryptedPassword = bcrypt.hashSync(pw, 10);
+        
+        const user = new User({
             user_id: user_id,
-            pw: encodedPW,
+            pw : encryptedPassword,
             nickname: nickname,
-         });
+        });
         await user.save();
 
         res.status(201).send({
@@ -79,24 +79,21 @@ router.post('/login', async (req, res) => {
     try {
         const { user_id, pw } = await LoginSchema.validateAsync(req.body);
 
-        const encodedPW = crypto.createHash(process.env.Algorithm).update(pw + process.env.salt).digest('base64');
+        const user = await User.findOne({ user_id, pw }).exec();
 
-//        const user = await User.findOne({ user_id, pw }).exec();
-        const user = await User.findOne({ user_id });
-
-        if(!user || encodedPW !== user.pw) {
+        if (!user) {
             res.status(400).send({
                 errorMessage: '아이디 또는 패스워드를 다시 확인해주세요',
             });
             return;
         }
 
-        // if (!user) {
-        //     res.status(400).send({
-        //         errorMessage: '아이디 또는 패스워드를 다시 확인해주세요',
-        //     });
-        //     return;
-        // }
+        if (!bcrypt.compareSync(pw, user.pw)) {
+            res.status(401).send({
+                errorMessage: '아이디 또는 패스워드가 잘못됐습니다.',
+            });
+            return;
+        }
 
 //        console.log(process.env.TOKENKEY);
 
