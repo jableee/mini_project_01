@@ -49,11 +49,11 @@ router.post('/signup', async (req, res) => {
         }
 
 
-        const encryptedPassword = bcrypt.hashSync(pw, 10);
+        const encodedPassword = bcrypt.hashSync(pw, 10);
         
         const user = new User({
             user_id: user_id,
-            pw : encryptedPassword,
+            pw : encodedPassword,
             nickname: nickname,
         });
         await user.save();
@@ -79,7 +79,7 @@ router.post('/login', async (req, res) => {
     try {
         const { user_id, pw } = await LoginSchema.validateAsync(req.body);
 
-        const user = await User.findOne({ user_id, pw }).exec();
+        const user = await User.findOne({ user_id, }).exec();
 
         if (!user) {
             res.status(400).send({
