@@ -1,15 +1,15 @@
 const express = require('express');
-
 const app = express();
-const port = 5000;
-// const bodyParser = require('body-parser');
+
+require('dotenv').config()
+const port = process.env.PORT || 5000;
 
 const connect = require('./schemas');
 connect ();
 
-// app.use(bodyParser.json());
-app.use(express.json());
+
 app.use(express.urlencoded({ extened: false }));
+app.use(express.json());
 
 const mainRouter = require("./routers/note"); //데이터명 정해주기
 const user = require('./routers/user');
