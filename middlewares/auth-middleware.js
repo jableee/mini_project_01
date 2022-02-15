@@ -13,8 +13,8 @@ module.exports = (req, res, next) => {
     }
 
     try {
-        const { userId } = jwt.verify(tokenValue, 'my-secret-key');
-        Users.findById(userId).exec().then((user) => {
+        const { user_id } = jwt.verify(tokenValue, 'my-secret-key');
+        Users.findById(user_id).exec().then((user) => {
             res.locals.user = user;
             next();
         });
