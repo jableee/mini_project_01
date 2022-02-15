@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cors = require("cors");
 
 require('dotenv').config()
 const port = process.env.PORT || 5000;
@@ -7,6 +8,7 @@ const port = process.env.PORT || 5000;
 const connect = require('./schemas');
 connect ();
 
+app.use(cors()); // 우선 cors 다 열어줌
 
 app.use(express.urlencoded({ extened: false }));
 app.use(express.json());
