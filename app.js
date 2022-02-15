@@ -1,28 +1,16 @@
 const express = require('express');
 const app = express();
 const port = 5000;
-// const mongoose = require('mongoose');
 
-// mongoose.connect('mongodb://localhost/post', {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-// });
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
-// const db = mongoose.connection;
-// db.on('error', console.error.bind(console, 'conection error'));
+const connect = require('./schemas/index');
+connect();
 
-const bodyParser = require('body-parser');
-
-const connect = require('./schemas/user');
-connect ();
-
-app.use(bodyParser.json());
-// app.use(express.urlencoded({ extened: false }));
-
-const user = require('./routers/user');
-
-app.use('/api', user);
+const UserRouter = require('./routers/user');
+app.use('/api', UserRouter);
 
 app.listen(port, () => {
-    console.log(`listening at http://localhost:${port}`);
+    console.log(`listening at http:localhost:${port}`);
 });
