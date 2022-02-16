@@ -102,10 +102,19 @@ router.put("/notelist/:note_id", auth, async (req, res, next) => {
     $set:{ note_title: note_title }
   })
 
-  const result = await Note.find({ user_id: user_id });
+  const result = await Note.findOne({ user_id: user_id });
 
   res.send(result);
 
 });
+// 수정 버튼 들어갈때
+router.get('/notelist/:note_id', auth, async (req, res, next) => {
+  const { note_id } = req.params;
+
+  const result = await Note.findOne({ note_id: note_id });
+
+  res.send(result);
+})
+
 
 module.exports = router;
