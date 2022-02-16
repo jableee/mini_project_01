@@ -99,7 +99,7 @@ router.post('/login', async (req, res) => {
 
         const token = jwt.sign({ user_id: user.userId }, process.env.TOKENKEY);
         res.send({
-            token,
+            token, user_id
         });
     } catch (err) {
         console.log(err);
