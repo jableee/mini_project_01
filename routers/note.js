@@ -108,4 +108,13 @@ router.put("/notelist/:note_id", auth, async (req, res, next) => {
 
 });
 
+// 수정 버튼 들어갈때
+router.get('/notelist/:note_id', auth, async (req, res, next) => {
+  const { note_id } = req.params;
+
+  const result = await Note.findOne({ note_id: note_id });
+
+  res.send(result);
+})
+
 module.exports = router;
