@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const connect = () => {
-    mongoose.connect('mongodb://test:test@3.37.36.192:27017/admin', {
+    mongoose.connect('mongodb://test:test@localhost:27017/admin', {
         dbName:'note-memo',
         useNewUrlParser: true,
         useUnifiedTopology: true,
