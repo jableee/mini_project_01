@@ -102,7 +102,7 @@ router.put("/notelist/:note_id", auth, async (req, res, next) => {
     $set:{ note_title: note_title }
   })
 
-  const result = await Note.find({ user_id: user_id });
+  const result = await Note.findOne({ user_id: user_id });
 
   res.send(result);
 
