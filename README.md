@@ -38,6 +38,8 @@ Web Site :
  <summary>자세히 보기</summary>
  https://www.notion.so/249482fd1ce141a5920317630ec2119c?v=372578fe5ba84241b62d10f9779f3268
 
+ </details>
+
 ## 🔨사용한 기술 스택
 
 <code> Front-end </code>
