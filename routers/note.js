@@ -9,6 +9,7 @@ router.post("/notelist", auth, async (req, res) => {
   console.log("post new note");
   const { user_id } = req.body;
   const { note_title } = req.body; // note_title = req.body.note_title
+  const { image_url } = req.body;
 
   console.log(note_title);
   let newNote = 1;
@@ -33,6 +34,7 @@ router.post("/notelist", auth, async (req, res) => {
     note_id: newNote,
     note_title: note_title,
     user_id: user_id,
+    image_url: image_url,
   });
   await notes.save();
 
@@ -89,6 +91,7 @@ router.delete("/notelist/:note_id", auth, async (req, res, next) => {
 router.put("/notelist/:note_id", auth, async (req, res, next) => {
   const { note_id } = req.params;
   const { user_id, note_title } = req.body;
+  const { image_url } = req.body;
 
   let check_title = note_title.split(" ");
 
@@ -102,7 +105,7 @@ router.put("/notelist/:note_id", auth, async (req, res, next) => {
   await Note.updateOne({
     note_id: note_id,
   },{
-    $set:{ note_title: note_title }
+    $set:{ note_title: note_title , image_url: image_url}
   })
 
   const result = await Note.findOne({ user_id: user_id });
