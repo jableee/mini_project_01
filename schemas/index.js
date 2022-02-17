@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 
 const connect = () => {
-    mongoose.connect('mongodb://localhost:27017/note-memo', {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
+    mongoose.connect('mongodb://test:test@localhost:27017/admin', {
+        dbName: 'notememo',
+        // useNewUrlParser: true,
+        // useUnifiedTopology: true,
         ignoreUndefined: true
     })
     .catch(err => console.log(err));
