@@ -61,10 +61,6 @@ router.put("/memo/:memo_id", async (req, res) => {
   // const { note_id } = req.body;
   const { memo_id } = req.params;
   const { memo_content, memo_title, date } = req.body;
-  const date = new Date(+new Date() + 3240 * 10000)
-    .toISOString()
-    .replace("T", " ")
-    .replace(/\..*/, "");
   // const exist_memo = await Memo.find({ note_id: note_id, memo_id: memo_id });
   // console.log(exist_memo)
   // if (!exist_memo.length) {
