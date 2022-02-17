@@ -37,10 +37,10 @@ router.get("/memo", async (req, res) => {
 router.post("/memo", async (req, res) => {
   const { memo_id, note_id, memo_content, memo_title } = req.body;
   const memos = await Memo.find({ note_id });
-  const date = new Date(+new Date() + 3240 * 10000)
-    .toISOString()
-    .replace("T", " ")
-    .replace(/\..*/, "");
+  // const date = new Date(+new Date() + 3240 * 10000)
+  //   .toISOString()
+  //   .replace("T", " ")
+  //   .replace(/\..*/, "");
   // if (memos.length) {
   // 	return res
   // 	  .status(400)
@@ -58,10 +58,13 @@ router.post("/memo", async (req, res) => {
 });
 
 router.put("/memo/:memo_id", async (req, res) => {
-  const { note_id } = req.body;
+  // const { note_id } = req.body;
   const { memo_id } = req.params;
   const { memo_content, memo_title, date } = req.body;
-
+  const date = new Date(+new Date() + 3240 * 10000)
+    .toISOString()
+    .replace("T", " ")
+    .replace(/\..*/, "");
   // const exist_memo = await Memo.find({ note_id: note_id, memo_id: memo_id });
   // console.log(exist_memo)
   // if (!exist_memo.length) {
@@ -79,19 +82,19 @@ router.put("/memo/:memo_id", async (req, res) => {
   //   );
   // }
   await Memo.updateOne(
-    { note_id: note_id, memo_id: memo_id},
+    { memo_id: memo_id},
     { $set: { memo_content, memo_title, date } }
   )
-  const test = await Memo.find({ note_id: note_id })
+  const test = await Memo.find({ memo_id: memo_id })
   res.send({ success: true, test });
 });
 
-router.delete("/notelist/:note_id/memo/:memo_id", async (req, res) => {
-  const { note_id, memo_id } = req.params;
+router.delete("/memo/:memo_id", async (req, res) => {
+  const { memo_id } = req.params;
 
-  const deleteMemo = await Memo.find({ note_id: note_id, memo_id: memo_id });
+  const deleteMemo = await Memo.find({ memo_id: memo_id });
   if (deleteMemo.length) {
-    await Memo.deleteOne({ note_id: note_id, memo_id: memo_id });
+    await Memo.deleteOne({ memo_id: memo_id });
   }
   res.send({ success: true });
 });

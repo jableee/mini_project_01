@@ -44,7 +44,10 @@ router.post("/notelist", auth, async (req, res) => {
       memo_id: `${user_id}_${newNote}_${i}`,
       memo_title: "test", //title, content 어떤 식으로 ? 지금 방식은 공란후 메모에가서 수정
       memo_content: "test",
-      date: new Date(),
+      date: new Date(+new Date() + 3240 * 10000)
+      .toISOString()
+      .replace("T", " ")
+      .replace(/\..*/, ""),
     });
     await memos.save();
   }
