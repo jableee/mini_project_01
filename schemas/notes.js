@@ -10,7 +10,7 @@ const noteSchemas = new mongoose.Schema({
         type: String,
         required: true,
     },
-    userId: {
+    user_id: {
         type: String,
     },
     // note_image: {
