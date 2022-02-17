@@ -17,11 +17,11 @@ const authMiddleware = require("../middlewares/auth-middleware");
 //   }
 // });
 
-router.get("/memo", async (req, res) => {
+router.get("/memo/:memo_id", async (req, res) => {
   try {
-    const { memo_id } = req.body;
-    console.log(memo_id);
-    console.log(typeof(memo_id))
+    const { memo_id } = req.params;
+    // console.log(memo_id);
+    // console.log(typeof(memo_id))
     // const memos = await Memo.find({
     //   note_id: note_id,
     // }).sort("-date");
