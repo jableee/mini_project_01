@@ -13,6 +13,9 @@ const noteSchemas = new mongoose.Schema({
     user_id: {
         type: String,
     },
+    image_url: {
+        type: String,
+    }
     // note_image: {
     //     type: Image,
     // },
